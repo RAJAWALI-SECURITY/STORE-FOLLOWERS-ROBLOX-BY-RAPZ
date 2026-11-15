@@ -394,130 +394,48 @@
       font-size: 20px;
     }
 
-    /* ============ INFO QRIS ============ */
+    /* ============ INFO QRIS (GAMBAR LANGSUNG) ============ */
     .payment-info {
       background: #1a1a2e;
       border: 2px solid #2a2a3e;
       border-radius: 16px;
-      padding: 20px;
+      padding: 25px 20px;
       margin-bottom: 20px;
       text-align: center;
-    }
-
-    .qris-logo {
       display: flex;
       flex-direction: column;
       align-items: center;
-      margin-bottom: 12px;
-    }
-
-    .qris-text {
-      font-size: 28px;
-      font-weight: 900;
-      letter-spacing: 3px;
-      color: #e11d48;
-      text-shadow: 0 0 10px rgba(225, 29, 72, 0.3);
-    }
-
-    .qris-logo small {
-      font-size: 10px;
-      color: #999;
-      letter-spacing: 1px;
-      margin-top: -5px;
     }
 
     .payment-info p {
       color: #ccc;
       font-size: 13px;
       line-height: 1.5;
+      margin-bottom: 15px;
     }
 
     .payment-info strong {
       color: #a855f7;
     }
 
-    /* ============ MODAL QRIS ============ */
-    .modal {
-      display: none;
-      position: fixed;
-      z-index: 999;
-      left: 0;
-      top: 0;
-      width: 100%;
-      height: 100%;
-      background-color: rgba(0, 0, 0, 0.85);
-      backdrop-filter: blur(5px);
-      align-items: center;
-      justify-content: center;
-      padding: 15px;
-      animation: fadeIn 0.3s ease;
-    }
-
-    .modal.active {
-      display: flex;
-    }
-
-    .modal-content {
-      background: #1a1a2e;
-      border: 1px solid #2a2a3e;
-      border-radius: 20px;
-      padding: 25px;
-      max-width: 400px;
-      width: 100%;
-      text-align: center;
-      position: relative;
-      animation: slideUp 0.4s ease;
-    }
-
-    @keyframes slideUp {
-      from { opacity: 0; transform: translateY(30px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    .close {
-      position: absolute;
-      top: 12px;
-      right: 18px;
-      color: #999;
-      font-size: 28px;
-      font-weight: bold;
-      cursor: pointer;
-      transition: 0.2s;
-    }
-
-    .close:hover { color: #fff; }
-
-    .modal-content h2 {
-      font-size: 20px;
-      margin-bottom: 8px;
-    }
-
-    .modal-total {
-      color: #999;
-      font-size: 14px;
-      margin-bottom: 15px;
-    }
-
-    .modal-total strong {
-      color: #a855f7;
-      font-size: 18px;
-    }
-
+    /* Kotak Putih Pembungkus QRIS */
     .qris-image-container {
       background: #fff;
       padding: 15px;
       border-radius: 12px;
-      margin-bottom: 15px;
       display: flex;
       justify-content: center;
       align-items: center;
+      width: 100%;
+      max-width: 320px;
+      margin-bottom: 15px;
     }
 
     .qris-image {
       width: 100%;
-      max-width: 280px;
       height: auto;
       display: block;
+      border-radius: 8px;
     }
 
     .modal-hint {
@@ -541,7 +459,7 @@
       text-align: center;
       cursor: pointer;
       transition: 0.3s;
-      margin-top: 10px;
+      margin-top: 5px;
     }
 
     .btn-form-confirm:hover {
@@ -705,7 +623,7 @@
     </section>
 
 
-    <!-- ================= LAYAR 2: PEMBAYARAN (QRIS ONLY) ================= -->
+    <!-- ================= LAYAR 2: PEMBAYARAN (QRIS) ================= -->
     <section id="step2" class="step-screen">
       
       <div class="header">
@@ -751,45 +669,30 @@
 
       <!-- Info Pembayaran QRIS -->
       <div class="payment-info">
-        <div class="qris-logo">
-          <span class="qris-text">QRIS</span>
-          <small>QR Code Standar Pembayaran Nasional</small>
-        </div>
         <p>Pembayaran hanya melalui <strong>QRIS</strong> (DANA, OVO, GoPay, ShopeePay, BCA, dll).</p>
+        
+        <!-- QRIS Image Container -->
+        <div class="qris-image-container">
+          <img src="https://i.ibb.co.com/v43cpb6H/qr-ID1026638898191-15-11-26-1794754428-1794754428177.jpg" alt="QRIS RAFZ STORE" class="qris-image">
+        </div>
+
+        <p class="modal-hint">
+          📌 <strong>Instruksi:</strong> Scan QR di atas, transfer sesuai total, lalu klik tombol di bawah ini untuk mengisi form konfirmasi.
+        </p>
+
+        <!-- Tombol Lanjut ke Google Form -->
+        <a href="https://docs.google.com/forms/d/e/1FAIpQLSe0-UmXVTdQPKKpjDcMJRcne3etd_zNvHdepLBOC6dUFLRp3Q/viewform?usp=header" target="_blank" class="btn-form-confirm">
+          📝 Lanjut ke Form Konfirmasi
+        </a>
       </div>
 
-      <!-- Tombol Aksi -->
+      <!-- Tombol Kembali -->
       <div class="actions">
-        <button class="btn-back" onclick="goToStep1()">← Kembali</button>
-        <button class="btn-pay" onclick="tampilkanQRIS()">Bayar dengan QRIS 💳</button>
+        <button class="btn-back" style="width: 100%;" onclick="goToStep1()">← Kembali</button>
       </div>
 
     </section>
 
-  </div>
-
-  <!-- ================= MODAL QRIS (POP-UP) ================= -->
-  <div id="modalQRIS" class="modal">
-    <div class="modal-content">
-      <span class="close" onclick="tutupQRIS()">&times;</span>
-      
-      <h2>Scan QRIS untuk Bayar</h2>
-      <p class="modal-total">Total: <strong id="modalTotal">Rp -</strong></p>
-      
-      <!-- GAMBAR QRIS SUDAH MENGGUNAKAN LINK LANGSUNG -->
-      <div class="qris-image-container">
-        <img src="https://img.host.com/i/2024/05/20/qris-rafz.jpg" alt="QRIS RAFZ STORE" class="qris-image" onerror="this.src='https://i.ibb.co/6P4V7VQ/qris-rafz.jpg'">
-      </div>
-
-      <p class="modal-hint">
-        📌 <strong>Instruksi:</strong> Scan QR di atas, transfer sesuai total, lalu klik tombol di bawah ini untuk mengisi form konfirmasi.
-      </p>
-
-      <!-- Tombol Lanjut ke Google Form -->
-      <a href="https://docs.google.com/forms/d/e/1FAIpQLSe0-UmXVTdQPKKpjDcMJRcne3etd_zNvHdepLBOC6dUFLRp3Q/viewform?usp=header" target="_blank" class="btn-form-confirm">
-        📝 Lanjut ke Form Konfirmasi
-      </a>
-    </div>
   </div>
 
   <script>
@@ -878,26 +781,6 @@
     function goToStep1() {
       showScreen('step1');
       window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
-
-    // ================= TAMPILKAN MODAL QRIS =================
-    function tampilkanQRIS() {
-      document.getElementById('modalTotal').textContent = 
-        'Rp ' + formatRupiah(orderData.totalHarga);
-      
-      document.getElementById('modalQRIS').classList.add('active');
-    }
-
-    // ================= TUTUP MODAL QRIS =================
-    function tutupQRIS() {
-      document.getElementById('modalQRIS').classList.remove('active');
-    }
-
-    window.onclick = function(event) {
-      const modal = document.getElementById('modalQRIS');
-      if (event.target === modal) {
-        tutupQRIS();
-      }
     }
 
     // ================= HELPER =================
