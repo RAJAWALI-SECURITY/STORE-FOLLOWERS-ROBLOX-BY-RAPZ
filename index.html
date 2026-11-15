@@ -1,1 +1,907 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RAFZ STORE - Jual Followers Roblox</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    /* ================= CSS ================= */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
 
+    body {
+      min-height: 100vh;
+      background: radial-gradient(circle at 50% 0%, rgba(168, 85, 247, 0.25), transparent 60%), #0f0f1a;
+      color: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      padding: 30px 15px;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 500px;
+    }
+
+    /* ============ STEP SCREEN ============ */
+    .step-screen {
+      display: none;
+      animation: fadeIn 0.4s ease;
+    }
+
+    .step-screen.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(15px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ============ HEADER ============ */
+    .header {
+      text-align: center;
+      margin-bottom: 25px;
+    }
+
+    .header h1 {
+      font-size: 32px;
+      font-weight: 800;
+      letter-spacing: 1px;
+    }
+
+    .header h1 span {
+      color: #a855f7;
+    }
+
+    .tagline {
+      color: #999;
+      font-size: 14px;
+      margin-top: 5px;
+    }
+
+    /* ============ PROGRESS BAR ============ */
+    .progress {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 30px;
+      gap: 8px;
+    }
+
+    .progress-step {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .progress-step .circle {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: #2a2a3e;
+      color: #777;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 14px;
+      transition: 0.3s;
+      border: 2px solid #2a2a3e;
+    }
+
+    .progress-step span {
+      font-size: 11px;
+      color: #777;
+    }
+
+    .progress-step.active .circle {
+      background: #a855f7;
+      color: #fff;
+      border-color: #a855f7;
+      box-shadow: 0 0 15px rgba(168, 85, 247, 0.5);
+    }
+
+    .progress-step.active span {
+      color: #a855f7;
+      font-weight: 600;
+    }
+
+    .progress-step.done .circle {
+      background: #22c55e;
+      color: #fff;
+      border-color: #22c55e;
+    }
+
+    .progress-line {
+      width: 60px;
+      height: 3px;
+      background: #2a2a3e;
+      border-radius: 3px;
+      margin-bottom: 20px;
+    }
+
+    .progress-line.active {
+      background: #a855f7;
+    }
+
+    /* ============ FORM ============ */
+    .form-group {
+      margin-bottom: 25px;
+    }
+
+    .form-group > label {
+      display: block;
+      font-weight: 600;
+      margin-bottom: 10px;
+      font-size: 15px;
+    }
+
+    input[type="text"] {
+      width: 100%;
+      padding: 14px 16px;
+      background: #1a1a2e;
+      border: 2px solid #2a2a3e;
+      border-radius: 10px;
+      color: #fff;
+      font-size: 15px;
+      outline: none;
+      transition: 0.3s;
+    }
+
+    input[type="text"]:focus {
+      border-color: #a855f7;
+      box-shadow: 0 0 0 3px rgba(168, 85, 247, 0.15);
+    }
+
+    input[type="text"]::placeholder {
+      color: #555;
+    }
+
+    .hint {
+      display: block;
+      color: #f59e0b;
+      font-size: 12px;
+      margin-top: 6px;
+    }
+
+    /* ============ PAKET CARDS & QTY ============ */
+    .paket-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .paket-card {
+      background: #1a1a2e;
+      border: 2px solid #2a2a3e;
+      border-radius: 12px;
+      overflow: hidden;
+      transition: 0.25s;
+      position: relative;
+    }
+
+    .paket-card:has(input:checked) {
+      border-color: #a855f7;
+      background: rgba(168, 85, 247, 0.1);
+      box-shadow: 0 0 20px rgba(168, 85, 247, 0.2);
+    }
+
+    .paket-card:hover {
+      border-color: #a855f7;
+    }
+
+    .paket-main {
+      display: block;
+      cursor: pointer;
+      margin: 0;
+    }
+
+    .paket-main input {
+      display: none;
+    }
+
+    .paket-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px 20px 10px 20px;
+    }
+
+    .paket-info h3 {
+      font-size: 16px;
+      margin-bottom: 3px;
+    }
+
+    .paket-info p {
+      font-size: 13px;
+      color: #999;
+    }
+
+    .paket-price {
+      font-size: 16px;
+      font-weight: 700;
+      color: #a855f7;
+    }
+
+    .badge-popular {
+      position: absolute;
+      top: 10px;
+      right: 16px;
+      background: #a855f7;
+      color: #fff;
+      font-size: 10px;
+      font-weight: 700;
+      padding: 3px 10px;
+      border-radius: 20px;
+      letter-spacing: 0.5px;
+      z-index: 2;
+    }
+
+    .qty-wrapper {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 20px 16px;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .qty-wrapper span {
+      font-size: 13px;
+      color: #999;
+    }
+
+    .qty-control {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .qty-control button {
+      width: 30px;
+      height: 30px;
+      border-radius: 6px;
+      border: 1px solid #2a2a3e;
+      background: #0f0f1a;
+      color: #fff;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.2s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .qty-control button:hover {
+      background: #a855f7;
+      border-color: #a855f7;
+    }
+
+    .qty-input {
+      width: 40px;
+      text-align: center;
+      background: transparent;
+      border: none;
+      color: #fff;
+      font-size: 15px;
+      font-weight: 700;
+      outline: none;
+    }
+
+    .qty-input::-webkit-outer-spin-button,
+    .qty-input::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+
+    /* ============ BUTTONS ============ */
+    .btn-next, .btn-pay {
+      width: 100%;
+      padding: 16px;
+      border: none;
+      border-radius: 12px;
+      background: linear-gradient(135deg, #a855f7, #7c3aed);
+      color: #fff;
+      font-size: 16px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: 0.3s;
+      margin-top: 10px;
+    }
+
+    .btn-next:hover, .btn-pay:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 25px rgba(168, 85, 247, 0.4);
+    }
+
+    .btn-back {
+      padding: 16px 20px;
+      border: 2px solid #2a2a3e;
+      background: transparent;
+      color: #ccc;
+      border-radius: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: 0.3s;
+      font-size: 15px;
+    }
+
+    .btn-back:hover {
+      border-color: #a855f7;
+      color: #a855f7;
+    }
+
+    .actions {
+      display: flex;
+      gap: 10px;
+      margin-top: 10px;
+    }
+
+    .actions .btn-pay {
+      flex: 1;
+      margin-top: 0;
+    }
+
+    /* ============ SUMMARY ============ */
+    .summary {
+      background: #1a1a2e;
+      border: 1px solid #2a2a3e;
+      border-radius: 16px;
+      padding: 22px;
+      margin-bottom: 25px;
+    }
+
+    .summary h2 {
+      font-size: 17px;
+      margin-bottom: 18px;
+    }
+
+    .summary-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 8px 0;
+      font-size: 14px;
+      color: #999;
+    }
+
+    .summary-row strong {
+      color: #fff;
+      font-weight: 600;
+    }
+
+    .summary-divider {
+      height: 1px;
+      background: #2a2a3e;
+      margin: 12px 0;
+    }
+
+    .summary-row.total {
+      font-size: 16px;
+      color: #fff;
+    }
+
+    .summary-row.total strong {
+      color: #a855f7;
+      font-size: 20px;
+    }
+
+    /* ============ INFO QRIS ============ */
+    .payment-info {
+      background: #1a1a2e;
+      border: 2px solid #2a2a3e;
+      border-radius: 16px;
+      padding: 20px;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    .qris-logo {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+
+    .qris-text {
+      font-size: 28px;
+      font-weight: 900;
+      letter-spacing: 3px;
+      color: #e11d48;
+      text-shadow: 0 0 10px rgba(225, 29, 72, 0.3);
+    }
+
+    .qris-logo small {
+      font-size: 10px;
+      color: #999;
+      letter-spacing: 1px;
+      margin-top: -5px;
+    }
+
+    .payment-info p {
+      color: #ccc;
+      font-size: 13px;
+      line-height: 1.5;
+    }
+
+    .payment-info strong {
+      color: #a855f7;
+    }
+
+    /* ============ MODAL QRIS ============ */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 999;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.85);
+      backdrop-filter: blur(5px);
+      align-items: center;
+      justify-content: center;
+      padding: 15px;
+      animation: fadeIn 0.3s ease;
+    }
+
+    .modal.active {
+      display: flex;
+    }
+
+    .modal-content {
+      background: #1a1a2e;
+      border: 1px solid #2a2a3e;
+      border-radius: 20px;
+      padding: 25px;
+      max-width: 400px;
+      width: 100%;
+      text-align: center;
+      position: relative;
+      animation: slideUp 0.4s ease;
+    }
+
+    @keyframes slideUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .close {
+      position: absolute;
+      top: 12px;
+      right: 18px;
+      color: #999;
+      font-size: 28px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    .close:hover { color: #fff; }
+
+    .modal-content h2 {
+      font-size: 20px;
+      margin-bottom: 8px;
+    }
+
+    .modal-total {
+      color: #999;
+      font-size: 14px;
+      margin-bottom: 15px;
+    }
+
+    .modal-total strong {
+      color: #a855f7;
+      font-size: 18px;
+    }
+
+    .qris-image-container {
+      background: #fff;
+      padding: 15px;
+      border-radius: 12px;
+      margin-bottom: 15px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .qris-image {
+      width: 100%;
+      max-width: 280px;
+      height: auto;
+      display: block;
+    }
+
+    .modal-hint {
+      color: #f59e0b;
+      font-size: 12px;
+      margin-bottom: 15px;
+      line-height: 1.4;
+    }
+
+    .btn-form-confirm {
+      display: block;
+      width: 100%;
+      padding: 14px;
+      border: none;
+      border-radius: 10px;
+      background: linear-gradient(135deg, #3b82f6, #2563eb);
+      color: #fff;
+      font-size: 15px;
+      font-weight: 700;
+      text-decoration: none;
+      text-align: center;
+      cursor: pointer;
+      transition: 0.3s;
+      margin-top: 10px;
+    }
+
+    .btn-form-confirm:hover {
+      background: linear-gradient(135deg, #2563eb, #1d4ed8);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(37, 99, 235, 0.4);
+    }
+
+    /* ============ MOBILE ============ */
+    @media (max-width: 400px) {
+      .header h1 { font-size: 26px; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+
+    <!-- ================= LAYAR 1: FORM ORDER ================= -->
+    <section id="step1" class="step-screen active">
+      
+      <div class="header">
+        <h1>RAFZ<span>STORE</span></h1>
+        <p class="tagline">Jual Followers Roblox Murah & Cepat 🚀</p>
+      </div>
+
+      <!-- Progress Bar -->
+      <div class="progress">
+        <div class="progress-step active">
+          <div class="circle">1</div>
+          <span>Order</span>
+        </div>
+        <div class="progress-line"></div>
+        <div class="progress-step">
+          <div class="circle">2</div>
+          <span>Pembayaran</span>
+        </div>
+      </div>
+
+      <!-- Form -->
+      <form id="orderForm" onsubmit="goToPayment(event)">
+        
+        <!-- Input Username -->
+        <div class="form-group">
+          <label for="username">👤 Username Roblox</label>
+          <input 
+            type="text" 
+            id="username" 
+            placeholder="Contoh: RafzGaming123" 
+            required
+            autocomplete="off"
+          >
+          <small class="hint">⚠️ Pastikan username benar, tidak perlu pakai password!</small>
+        </div>
+
+        <!-- Pilihan Paket -->
+        <div class="form-group">
+          <label>📦 Pilih Paket Followers</label>
+          <div class="paket-list">
+
+            <!-- Paket 1: 100 Followers -->
+            <div class="paket-card">
+              <label class="paket-main">
+                <input type="radio" name="paket" value="100" data-harga="20000" data-nama="100 Followers" required>
+                <div class="paket-content">
+                  <div class="paket-info">
+                    <h3>100 Followers</h3>
+                    <p>Harga Normal</p>
+                  </div>
+                  <div class="paket-price">Rp 20.000</div>
+                </div>
+              </label>
+              <div class="qty-wrapper">
+                <span>Jumlah:</span>
+                <div class="qty-control">
+                  <button type="button" onclick="ubahQty(this, -1)">-</button>
+                  <input type="number" class="qty-input" value="1" min="1" max="100" readonly>
+                  <button type="button" onclick="ubahQty(this, 1)">+</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Paket 2: 500 Followers (Diskon) -->
+            <div class="paket-card">
+              <div class="badge-popular">DISKON 🔥</div>
+              <label class="paket-main">
+                <input type="radio" name="paket" value="500" data-harga="80000" data-nama="500 Followers">
+                <div class="paket-content">
+                  <div class="paket-info">
+                    <h3>500 Followers</h3>
+                    <p>Harga Spesial</p>
+                  </div>
+                  <div class="paket-price">Rp 80.000</div>
+                </div>
+              </label>
+              <div class="qty-wrapper">
+                <span>Jumlah:</span>
+                <div class="qty-control">
+                  <button type="button" onclick="ubahQty(this, -1)">-</button>
+                  <input type="number" class="qty-input" value="1" min="1" max="50" readonly>
+                  <button type="button" onclick="ubahQty(this, 1)">+</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Paket 3: 1000 Followers (Diskon) -->
+            <div class="paket-card">
+              <div class="badge-popular">DISKON 🔥</div>
+              <label class="paket-main">
+                <input type="radio" name="paket" value="1000" data-harga="160000" data-nama="1000 Followers">
+                <div class="paket-content">
+                  <div class="paket-info">
+                    <h3>1000 Followers</h3>
+                    <p>Harga Spesial</p>
+                  </div>
+                  <div class="paket-price">Rp 160.000</div>
+                </div>
+              </label>
+              <div class="qty-wrapper">
+                <span>Jumlah:</span>
+                <div class="qty-control">
+                  <button type="button" onclick="ubahQty(this, -1)">-</button>
+                  <input type="number" class="qty-input" value="1" min="1" max="20" readonly>
+                  <button type="button" onclick="ubahQty(this, 1)">+</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Paket 4: 5000 Followers (Diskon) -->
+            <div class="paket-card">
+              <div class="badge-popular">DISKON 🔥</div>
+              <label class="paket-main">
+                <input type="radio" name="paket" value="5000" data-harga="600000" data-nama="5000 Followers">
+                <div class="paket-content">
+                  <div class="paket-info">
+                    <h3>5000 Followers</h3>
+                    <p>Harga Spesial</p>
+                  </div>
+                  <div class="paket-price">Rp 600.000</div>
+                </div>
+              </label>
+              <div class="qty-wrapper">
+                <span>Jumlah:</span>
+                <div class="qty-control">
+                  <button type="button" onclick="ubahQty(this, -1)">-</button>
+                  <input type="number" class="qty-input" value="1" min="1" max="10" readonly>
+                  <button type="button" onclick="ubahQty(this, 1)">+</button>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <button type="submit" class="btn-next">
+          Lanjut ke Pembayaran →
+        </button>
+
+      </form>
+
+    </section>
+
+
+    <!-- ================= LAYAR 2: PEMBAYARAN (QRIS ONLY) ================= -->
+    <section id="step2" class="step-screen">
+      
+      <div class="header">
+        <h1>RAFZ<span>STORE</span></h1>
+        <p class="tagline">Selesaikan Pembayaran 💳</p>
+      </div>
+
+      <!-- Progress Bar -->
+      <div class="progress">
+        <div class="progress-step done">
+          <div class="circle">✓</div>
+          <span>Order</span>
+        </div>
+        <div class="progress-line active"></div>
+        <div class="progress-step active">
+          <div class="circle">2</div>
+          <span>Pembayaran</span>
+        </div>
+      </div>
+
+      <!-- Ringkasan Order -->
+      <div class="summary">
+        <h2>📋 Ringkasan Pesanan</h2>
+        
+        <div class="summary-row">
+          <span>Username Roblox</span>
+          <strong id="sUsername">-</strong>
+        </div>
+        <div class="summary-row">
+          <span>Paket</span>
+          <strong id="sPaket">-</strong>
+        </div>
+        <div class="summary-row">
+          <span>Jumlah Followers</span>
+          <strong id="sFollowers">-</strong>
+        </div>
+        <div class="summary-divider"></div>
+        <div class="summary-row total">
+          <span>Total Bayar</span>
+          <strong id="sTotal">-</strong>
+        </div>
+      </div>
+
+      <!-- Info Pembayaran QRIS -->
+      <div class="payment-info">
+        <div class="qris-logo">
+          <span class="qris-text">QRIS</span>
+          <small>QR Code Standar Pembayaran Nasional</small>
+        </div>
+        <p>Pembayaran hanya melalui <strong>QRIS</strong> (DANA, OVO, GoPay, ShopeePay, BCA, dll).</p>
+      </div>
+
+      <!-- Tombol Aksi -->
+      <div class="actions">
+        <button class="btn-back" onclick="goToStep1()">← Kembali</button>
+        <button class="btn-pay" onclick="tampilkanQRIS()">Bayar dengan QRIS 💳</button>
+      </div>
+
+    </section>
+
+  </div>
+
+  <!-- ================= MODAL QRIS (POP-UP) ================= -->
+  <div id="modalQRIS" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="tutupQRIS()">&times;</span>
+      
+      <h2>Scan QRIS untuk Bayar</h2>
+      <p class="modal-total">Total: <strong id="modalTotal">Rp -</strong></p>
+      
+      <!-- Gambar QRIS (GANTI src DENGAN GAMBAR KAMU) -->
+      <div class="qris-image-container">
+        <img src="qris.png" alt="QRIS RAFZ STORE" class="qris-image">
+      </div>
+
+      <p class="modal-hint">
+        📌 <strong>Instruksi:</strong> Scan QR di atas, transfer sesuai total, lalu klik tombol di bawah ini untuk mengisi form konfirmasi.
+      </p>
+
+      <!-- Tombol Lanjut ke Google Form -->
+      <a href="https://docs.google.com/forms/d/e/1FAIpQLSe0-UmXVTdQPKKpjDcMJRcne3etd_zNvHdepLBOC6dUFLRp3Q/viewform?usp=header" target="_blank" class="btn-form-confirm">
+        📝 Lanjut ke Form Konfirmasi
+      </a>
+    </div>
+  </div>
+
+  <script>
+    // ================= DATA ORDER =================
+    let orderData = {
+      username: '',
+      paket: '',
+      followersPerPaket: 0,
+      qty: 1,
+      totalFollowers: 0,
+      totalHarga: 0
+    };
+
+    // ================= FUNGSI UBAH QTY =================
+    function ubahQty(btn, perubahan) {
+      const input = btn.parentElement.querySelector('.qty-input');
+      let nilaiSekarang = parseInt(input.value);
+      let nilaiBaru = nilaiSekarang + perubahan;
+      
+      const min = parseInt(input.min);
+      const max = parseInt(input.max);
+      
+      if (nilaiBaru >= min && nilaiBaru <= max) {
+        input.value = nilaiBaru;
+      }
+    }
+
+    // ================= PINDAH KE PEMBAYARAN =================
+    function goToPayment(e) {
+      e.preventDefault();
+
+      const username = document.getElementById('username').value.trim();
+      const selectedPaket = document.querySelector('input[name="paket"]:checked');
+
+      if (!username) {
+        alert('❌ Username Roblox wajib diisi!');
+        return;
+      }
+
+      if (username.length < 3) {
+        alert('❌ Username minimal 3 karakter!');
+        return;
+      }
+
+      if (!selectedPaket) {
+        alert('❌ Pilih paket followers dulu ya!');
+        return;
+      }
+
+      const hargaPerPaket = parseInt(selectedPaket.dataset.harga);
+      const namaPaket = selectedPaket.dataset.nama;
+      const followersPerPaket = parseInt(selectedPaket.value);
+
+      const paketCard = selectedPaket.closest('.paket-card');
+      const qtyInput = paketCard.querySelector('.qty-input');
+      const qty = parseInt(qtyInput.value);
+
+      const totalHarga = hargaPerPaket * qty;
+      const totalFollowers = followersPerPaket * qty;
+
+      orderData.username = username;
+      orderData.paket = namaPaket;
+      orderData.followersPerPaket = followersPerPaket;
+      orderData.qty = qty;
+      orderData.totalFollowers = totalFollowers;
+      orderData.totalHarga = totalHarga;
+
+      document.getElementById('sUsername').textContent = orderData.username;
+      document.getElementById('sPaket').textContent = orderData.paket;
+      document.getElementById('sFollowers').textContent = 
+        `${orderData.totalFollowers.toLocaleString('id-ID')} Followers (${orderData.qty} Paket)`;
+      document.getElementById('sTotal').textContent = 
+        'Rp ' + formatRupiah(orderData.totalHarga);
+
+      showScreen('step2');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // ================= KEMBALI KE STEP 1 =================
+    function goToStep1() {
+      showScreen('step1');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // ================= TAMPILKAN MODAL QRIS =================
+    function tampilkanQRIS() {
+      document.getElementById('modalTotal').textContent = 
+        'Rp ' + formatRupiah(orderData.totalHarga);
+      
+      document.getElementById('modalQRIS').classList.add('active');
+    }
+
+    // ================= TUTUP MODAL QRIS =================
+    function tutupQRIS() {
+      document.getElementById('modalQRIS').classList.remove('active');
+    }
+
+    window.onclick = function(event) {
+      const modal = document.getElementById('modalQRIS');
+      if (event.target === modal) {
+        tutupQRIS();
+      }
+    }
+
+    // ================= HELPER =================
+    function showScreen(id) {
+      document.querySelectorAll('.step-screen').forEach(s => s.classList.remove('active'));
+      document.getElementById(id).classList.add('active');
+    }
+
+    function formatRupiah(angka) {
+      return angka.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+    }
+  </script>
+</body>
+</html>
