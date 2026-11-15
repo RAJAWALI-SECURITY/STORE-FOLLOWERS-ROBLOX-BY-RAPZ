@@ -776,9 +776,9 @@
       <h2>Scan QRIS untuk Bayar</h2>
       <p class="modal-total">Total: <strong id="modalTotal">Rp -</strong></p>
       
-      <!-- Gambar QRIS (GANTI src DENGAN GAMBAR KAMU) -->
+      <!-- GAMBAR QRIS SUDAH MENGGUNAKAN LINK LANGSUNG -->
       <div class="qris-image-container">
-        <img src="qris.png" alt="QRIS RAFZ STORE" class="qris-image">
+        <img src="https://img.host.com/i/2024/05/20/qris-rafz.jpg" alt="QRIS RAFZ STORE" class="qris-image" onerror="this.src='https://i.ibb.co/6P4V7VQ/qris-rafz.jpg'">
       </div>
 
       <p class="modal-hint">
@@ -805,7 +805,6 @@
 
     // ================= FUNGSI PILIH PAKET =================
     function pilihPaket(card) {
-      // Cari radio button di dalam card yang di-klik
       const radio = card.querySelector('input[type="radio"]');
       if (radio) {
         radio.checked = true;
@@ -831,7 +830,6 @@
       const username = document.getElementById('username').value.trim();
       const selectedPaket = document.querySelector('input[name="paket"]:checked');
 
-      // Validasi Manual
       if (!username) {
         alert('❌ Username Roblox wajib diisi!');
         return;
@@ -847,7 +845,6 @@
         return;
       }
 
-      // Ambil Data
       const hargaPerPaket = parseInt(selectedPaket.dataset.harga);
       const namaPaket = selectedPaket.dataset.nama;
       const followersPerPaket = parseInt(selectedPaket.value);
@@ -856,11 +853,9 @@
       const qtyInput = paketCard.querySelector('.qty-input');
       const qty = qtyInput ? parseInt(qtyInput.value) : 1;
 
-      // Hitung Total
       const totalHarga = hargaPerPaket * qty;
       const totalFollowers = followersPerPaket * qty;
 
-      // Simpan Data
       orderData.username = username;
       orderData.paket = namaPaket;
       orderData.followersPerPaket = followersPerPaket;
@@ -868,7 +863,6 @@
       orderData.totalFollowers = totalFollowers;
       orderData.totalHarga = totalHarga;
 
-      // Tampilkan ke Layar 2
       document.getElementById('sUsername').textContent = orderData.username;
       document.getElementById('sPaket').textContent = orderData.paket;
       document.getElementById('sFollowers').textContent = 
@@ -876,7 +870,6 @@
       document.getElementById('sTotal').textContent = 
         'Rp ' + formatRupiah(orderData.totalHarga);
 
-      // Pindah Layar
       showScreen('step2');
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
