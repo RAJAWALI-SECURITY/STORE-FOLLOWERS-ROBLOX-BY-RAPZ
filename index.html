@@ -418,7 +418,6 @@
       color: #a855f7;
     }
 
-    /* Kotak Putih Pembungkus QRIS */
     .qris-image-container {
       background: #fff;
       padding: 15px;
@@ -680,8 +679,11 @@
           📌 <strong>Instruksi:</strong> Scan QR di atas, transfer sesuai total, lalu klik tombol di bawah ini untuk mengisi form konfirmasi.
         </p>
 
-        <!-- Tombol Lanjut ke Google Form -->
-        <a href="https://docs.google.com/forms/d/e/1FAIpQLSe0-UmXVTdQPKKpjDcMJRcne3etd_zNvHdepLBOC6dUFLRp3Q/viewform?usp=header" target="_blank" class="btn-form-confirm">
+        <!-- Tombol Lanjut ke Google Form + Trigger Webhook -->
+        <a href="https://docs.google.com/forms/d/e/1FAIpQLSe0-UmXVTdQPKKpjDcMJRcne3etd_zNvHdepLBOC6dUFLRp3Q/viewform?usp=header" 
+           target="_blank" 
+           class="btn-form-confirm" 
+           onclick="kirimKeDiscord()">
           📝 Lanjut ke Form Konfirmasi
         </a>
       </div>
@@ -781,6 +783,44 @@
     function goToStep1() {
       showScreen('step1');
       window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // ================= KIRIM NOTIFIKASI KE DISCORD =================
+    function kirimKeDiscord() {
+      // URL Webhook Discord milikmu
+      const webhookURL = "https://discord.com/api/webhooks/1478422334804332759/Ba8zEmaqIxEYYWM-yn-CA5EnCs8eqE1p8mT7ZsHIAx5mr70druSkenwddb8LTnqt_iGI";
+
+      const payload = {
+        username: "RAFZ STORE Bot",
+        avatar_url: "https://cdn-icons-png.flaticon.com/512/4904/4904206.png",
+        embeds: [
+          {
+            title: "🛒 Ada Orderan Baru!",
+            color: 10988031, // Warna ungu (Hex: A855F7)
+            fields: [
+              { name: "👤 Username Roblox", value: orderData.username, inline: true },
+              { name: "📦 Paket", value: orderData.paket, inline: true },
+              { name: "🔢 Jumlah Followers", value: `${orderData.totalFollowers.toLocaleString('id-ID')} Followers (${orderData.qty} Paket)`, inline: false },
+              { name: "💰 Total Bayar", value: `Rp ${formatRupiah(orderData.totalHarga)}`, inline: true },
+              { name: "📝 Status", value: "Pelanggan sudah transfer & diarahkan ke Form Konfirmasi ✅", inline: false }
+            ],
+            footer: {
+              text: "RAFZ STORE Notification",
+              icon_url: "https://cdn-icons-png.flaticon.com/512/4904/4904206.png"
+            },
+            timestamp: new Date().toISOString()
+          }
+        ]
+      };
+
+      // Mengirim data ke Discord Webhook
+      fetch(webhookURL, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(payload)
+      }).catch(error => console.error('Error sending to Discord:', error));
     }
 
     // ================= HELPER =================
