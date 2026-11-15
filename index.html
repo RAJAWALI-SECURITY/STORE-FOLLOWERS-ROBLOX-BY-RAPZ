@@ -186,6 +186,7 @@
       overflow: hidden;
       transition: 0.25s;
       position: relative;
+      cursor: pointer;
     }
 
     .paket-card:has(input:checked) {
@@ -581,7 +582,7 @@
       </div>
 
       <!-- Form -->
-      <form id="orderForm" onsubmit="goToPayment(event)">
+      <form id="orderForm">
         
         <!-- Input Username -->
         <div class="form-group">
@@ -602,7 +603,7 @@
           <div class="paket-list">
 
             <!-- Paket 1: 100 Followers -->
-            <div class="paket-card">
+            <div class="paket-card" onclick="pilihPaket(this)">
               <label class="paket-main">
                 <input type="radio" name="paket" value="100" data-harga="20000" data-nama="100 Followers" required>
                 <div class="paket-content">
@@ -613,7 +614,7 @@
                   <div class="paket-price">Rp 20.000</div>
                 </div>
               </label>
-              <div class="qty-wrapper">
+              <div class="qty-wrapper" onclick="event.stopPropagation()">
                 <span>Jumlah:</span>
                 <div class="qty-control">
                   <button type="button" onclick="ubahQty(this, -1)">-</button>
@@ -623,8 +624,8 @@
               </div>
             </div>
 
-            <!-- Paket 2: 500 Followers (Diskon) -->
-            <div class="paket-card">
+            <!-- Paket 2: 500 Followers -->
+            <div class="paket-card" onclick="pilihPaket(this)">
               <div class="badge-popular">DISKON 🔥</div>
               <label class="paket-main">
                 <input type="radio" name="paket" value="500" data-harga="80000" data-nama="500 Followers">
@@ -636,7 +637,7 @@
                   <div class="paket-price">Rp 80.000</div>
                 </div>
               </label>
-              <div class="qty-wrapper">
+              <div class="qty-wrapper" onclick="event.stopPropagation()">
                 <span>Jumlah:</span>
                 <div class="qty-control">
                   <button type="button" onclick="ubahQty(this, -1)">-</button>
@@ -646,8 +647,8 @@
               </div>
             </div>
 
-            <!-- Paket 3: 1000 Followers (Diskon) -->
-            <div class="paket-card">
+            <!-- Paket 3: 1000 Followers -->
+            <div class="paket-card" onclick="pilihPaket(this)">
               <div class="badge-popular">DISKON 🔥</div>
               <label class="paket-main">
                 <input type="radio" name="paket" value="1000" data-harga="160000" data-nama="1000 Followers">
@@ -659,7 +660,7 @@
                   <div class="paket-price">Rp 160.000</div>
                 </div>
               </label>
-              <div class="qty-wrapper">
+              <div class="qty-wrapper" onclick="event.stopPropagation()">
                 <span>Jumlah:</span>
                 <div class="qty-control">
                   <button type="button" onclick="ubahQty(this, -1)">-</button>
@@ -669,8 +670,8 @@
               </div>
             </div>
 
-            <!-- Paket 4: 5000 Followers (Diskon) -->
-            <div class="paket-card">
+            <!-- Paket 4: 5000 Followers -->
+            <div class="paket-card" onclick="pilihPaket(this)">
               <div class="badge-popular">DISKON 🔥</div>
               <label class="paket-main">
                 <input type="radio" name="paket" value="5000" data-harga="600000" data-nama="5000 Followers">
@@ -682,7 +683,7 @@
                   <div class="paket-price">Rp 600.000</div>
                 </div>
               </label>
-              <div class="qty-wrapper">
+              <div class="qty-wrapper" onclick="event.stopPropagation()">
                 <span>Jumlah:</span>
                 <div class="qty-control">
                   <button type="button" onclick="ubahQty(this, -1)">-</button>
@@ -695,7 +696,7 @@
           </div>
         </div>
 
-        <button type="submit" class="btn-next">
+        <button type="button" class="btn-next" onclick="goToPayment()">
           Lanjut ke Pembayaran →
         </button>
 
@@ -802,6 +803,15 @@
       totalHarga: 0
     };
 
+    // ================= FUNGSI PILIH PAKET =================
+    function pilihPaket(card) {
+      // Cari radio button di dalam card yang di-klik
+      const radio = card.querySelector('input[type="radio"]');
+      if (radio) {
+        radio.checked = true;
+      }
+    }
+
     // ================= FUNGSI UBAH QTY =================
     function ubahQty(btn, perubahan) {
       const input = btn.parentElement.querySelector('.qty-input');
@@ -817,12 +827,11 @@
     }
 
     // ================= PINDAH KE PEMBAYARAN =================
-    function goToPayment(e) {
-      e.preventDefault();
-
+    function goToPayment() {
       const username = document.getElementById('username').value.trim();
       const selectedPaket = document.querySelector('input[name="paket"]:checked');
 
+      // Validasi Manual
       if (!username) {
         alert('❌ Username Roblox wajib diisi!');
         return;
@@ -834,21 +843,24 @@
       }
 
       if (!selectedPaket) {
-        alert('❌ Pilih paket followers dulu ya!');
+        alert('❌ Pilih paket followers dulu ya! Klik pada kotak paketnya.');
         return;
       }
 
+      // Ambil Data
       const hargaPerPaket = parseInt(selectedPaket.dataset.harga);
       const namaPaket = selectedPaket.dataset.nama;
       const followersPerPaket = parseInt(selectedPaket.value);
 
       const paketCard = selectedPaket.closest('.paket-card');
       const qtyInput = paketCard.querySelector('.qty-input');
-      const qty = parseInt(qtyInput.value);
+      const qty = qtyInput ? parseInt(qtyInput.value) : 1;
 
+      // Hitung Total
       const totalHarga = hargaPerPaket * qty;
       const totalFollowers = followersPerPaket * qty;
 
+      // Simpan Data
       orderData.username = username;
       orderData.paket = namaPaket;
       orderData.followersPerPaket = followersPerPaket;
@@ -856,6 +868,7 @@
       orderData.totalFollowers = totalFollowers;
       orderData.totalHarga = totalHarga;
 
+      // Tampilkan ke Layar 2
       document.getElementById('sUsername').textContent = orderData.username;
       document.getElementById('sPaket').textContent = orderData.paket;
       document.getElementById('sFollowers').textContent = 
@@ -863,6 +876,7 @@
       document.getElementById('sTotal').textContent = 
         'Rp ' + formatRupiah(orderData.totalHarga);
 
+      // Pindah Layar
       showScreen('step2');
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
